@@ -40,7 +40,7 @@ h1 {
     margin: 0;
     padding: 0;
     height: 100vh;
-    width: 0%;
+    width: 0;
     animation: expand-width 2.5s forwards;
 }
 
@@ -155,24 +155,27 @@ h1 {
     }
 }
 
-.glass-rectangle {
+.glass-box-grid{
+    display:grid;
+    grid-template-areas:
+        'glass-header'
+        'glass-body-content'
+        'glass-body-right-content';
     background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
     backdrop-filter: blur(10px); /* Frosted glass effect */
     border-radius: 10px; /* Rounded corners for a softer look */
     border: 1px solid rgba(255, 255, 255, 0.18); /* Light border */
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); /* Subtle shadow */
     /* Additional styling for size, positioning, etc. */
-    width: 300px;
+    width: 500px;
     height: 200px;
     /* For the glossy shine, you might use a pseudo-element */
     position: relative; /* Needed for positioning pseudo-element */
-    display:flex;
-    float:right;
     justify-content: center;
 }
 
-.glass-rectangle::before {
-    content: "";
+.glass-box-grid::before {
+    /*content: attr(content-data);*/
     position: absolute;
     top: 0;
     left: 0;
@@ -185,3 +188,62 @@ h1 {
     ); /* Subtle gradient for gloss */
     pointer-events: none; /* Allows interaction with the content below */
 }
+
+.glass-box-grid > * {
+    padding:1rem;
+}
+
+/* assign columns to grid areas */
+.glass-box-grid > .glass-header {
+    grid-area:glass-header;
+    background:crimson;
+}
+.glass-box-grid > .glass-body-content {
+    grid-area:glass-body-content;
+    background: blue;
+}
+.glass-box-grid > .glass-body-right-content {
+    grid-area:glass-body-right-content;
+    background: #48a83e;
+}
+
+@media (min-width:768px) {
+    .glass-box-grid {
+        grid-template-columns:repeat(2, 1fr);
+        grid-template-rows: 50px auto;
+        grid-template-areas:
+            'glass-header glass-header'
+            'glass-body-content glass-body-right-content';
+    }
+}
+
+/*.glass-rectangle {*/
+/*    background-color: rgba(255, 255, 255, 0.2); !* Semi-transparent white *!*/
+/*    backdrop-filter: blur(10px); !* Frosted glass effect *!*/
+/*    border-radius: 10px; !* Rounded corners for a softer look *!*/
+/*    border: 1px solid rgba(255, 255, 255, 0.18); !* Light border *!*/
+/*    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); !* Subtle shadow *!*/
+/*    !* Additional styling for size, positioning, etc. *!*/
+/*    width: 300px;*/
+/*    height: 200px;*/
+/*    !* For the glossy shine, you might use a pseudo-element *!*/
+/*    position: relative; !* Needed for positioning pseudo-element *!*/
+/*    display:flex;*/
+/*    float:left;*/
+/*    justify-content: center;*/
+/*}*/
+
+/*.glass-rectangle::before {*/
+/*    content: attr(content-data);*/
+/*    position: absolute;*/
+/*    top: 0;*/
+/*    left: 0;*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*    background: linear-gradient(*/
+/*            to bottom,*/
+/*            rgba(255, 255, 255, 0.15),*/
+/*            rgba(0, 0, 0, 0.05)*/
+/*    ); !* Subtle gradient for gloss *!*/
+/*    pointer-events: none; !* Allows interaction with the content below *!*/
+/*}*/
